@@ -1,0 +1,33 @@
+{% load i18n %}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+            Base title
+        {% endblock %}
+    </title>
+    <style>
+        .field{color:green;}
+        .error{color:red;}
+        .p{margin: 0;}
+        .vis{visibility: hidden; height: 0}
+    </style>
+</head>
+<body>
+    {% block body %}
+        Base Body
+    {% endblock %}
+
+    <div>
+        {% now 'H:i' %}
+    </div>
+
+    <div>
+        {% now 'l' as currennt_weekday %}
+        {% translate 'Current week day' %}: {{ currennt_weekday }}
+    </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+{% extends 'myauth/base.html' %}
+
+{% block title %}
+    Update profile
+{% endblock %}
+
+{% block body %}
+    {% if request.user.pk == object.user.pk or request.user.is_staff and user.is_authenticated %}
+       <h1>
+            Update profile {% firstof object.user.lastname object.user.username %}
+        </h1>
+        <form enctype="multipart/form-data" method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Update profile</button>
+        </form>
+
+        <h3>Current avatar:</h3>
+
+        {% if object.avatar %}
+            <div>
+                <img src="{{ object.avatar.url }}" alt="">
+            </div>
+        {% else %}
+            No avatar
+        {% endif %}
+        <div>
+            <a href="{% url 'myauth:about-me' pk=object.pk name=object.user.username %}">
+                Go to details user {{ object.user.username }}
+            </a>
+        </div>
+
+    {% else %}
+        <h2>You are not authorized to view this page</h2>
+    {% endif %}
+
+{% endblock %}

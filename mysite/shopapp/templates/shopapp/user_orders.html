@@ -1,0 +1,39 @@
+{% extends 'shopapp/base.html' %}
+{% load cache %}
+
+
+{% block title %}
+    User orders
+{% endblock %}
+
+{% block body %}
+    {% if user.is_authenticated %}
+        <h1>User orders</h1>
+        <h2>User: {{ object_list.user.username|capfirst }}</h2>
+        {% cache 6 user_orders object_list.user.id %}
+            {% if user_orders.orders %}
+                {% for order in user_orders.orders %}
+                    <h3>Order # {{ order.pk }}</h3>
+                    {% if order.products.all %}
+                        <ol>
+                            {% for product in order.products.all %}
+                                <li>{{ product.name }}</li>
+                            {% endfor %}
+                        </ol>
+                        {% if not forloop.last %}
+                            <hr>
+                        {% endif %} 
+
+                    {% else %}
+                        <p style="margin-left: 25px">No orders</p>
+                        {% if not forloop.last %}
+                            <hr>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <h3>User has no orders</h3>
+            {% endif %}
+        {% endcache %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'shopapp/base.html' %}
+
+{% load i18n %}
+
+{% block title %}
+    {% translate 'Prod' %}: {{ object.name }}
+{% endblock %}
+
+{% block body %}
+    <h1>{% translate 'Detail product' %}: {{ object.name }}</h1>
+    <div>
+
+        <p>
+            <strong>{% translate 'Price' context 'price product' %}:</strong> {{ object.price }}
+            {% blocktranslate count price=product.price %}
+                ruble
+                {% plural %}
+                rubles
+            {% endblocktranslate %}
+        </p>
+        <p>
+            {% blocktranslate count product_count=object.count %}
+                <strong>Count:</strong> {{ product_count }} product
+                {% plural %}
+                <strong>Count:</strong> {{ product_count }} products
+            {% endblocktranslate %}
+        </p>
+        <p><strong>{% translate 'Description' context 'description product' %}:</strong> {{ object.description }}</p>
+        <p>
+            {% blocktranslate count product_discount=product.discount %}
+                <strong>The discount is:</strong> {{ product_discount }} percent
+                {% plural %}
+                <strong>Product discount:</strong> {{ product_discount }} percent
+            {% endblocktranslate %}
+        </p>
+        <p><strong>{% translate 'Archived' context 'archived product' %}:</strong> {{ object.archived }}</p>
+        <p><strong>{% translate 'Create' context 'create product' %}:</strong> {{ object.create_at }}</p>
+    </div>
+    <div>
+        <a href="{% url 'shopapp:products_list' name=user.username %}">
+            {% translate 'Products list' context 'link' %}</a>
+    </div>
+    <div>
+        <a href="{% url 'shopapp:product_update' pk=object.pk name=user.username %}">
+            {% translate 'Product update' context 'link' %}</a>
+    </div>
+    <div>
+        <a href="{% url 'shopapp:product_archive' pk=object.pk name=user.username %}">
+            {% translate 'Product archive' context 'link' %}</a>
+    </div>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'BlogApp/base.html' %}
+
+{% block title %}
+    Create Tag
+{% endblock %}
+
+{% block body %}
+    <h1>Create tag</h1>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">
+            Create tag
+        </button>
+    </form>
+{% endblock %}

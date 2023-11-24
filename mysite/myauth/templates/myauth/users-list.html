@@ -1,0 +1,25 @@
+{% extends 'myauth/base.html' %}
+
+{% block title %}
+    Users list
+{% endblock %}
+
+{% block body %}
+    <h3>Users list</h3>
+    {% if user.is_staff %}
+        {% if object_list %}
+            {% for object in object_list %}
+                    <div>
+                        <a href="{% url 'myauth:user_details' pk=object.pk name=object.user.username %}">
+                            Information about the user {{ object.user.username }}
+                        </a>
+                    </div>
+                <br>
+            {% endfor %}
+        {% else %}
+            <div>No users</div>
+        {% endif %}
+    {% else %}
+        <h3>You are not authorized to view this page, please login as administrator</h3>
+    {% endif %}
+{% endblock %}

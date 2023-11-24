@@ -1,0 +1,30 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+    Product archive
+{% endblock %}
+
+{% block body %}
+    <h1>A you sure you want to archive "{{ product.name }}" ?</h1>
+    <br>
+    <br>
+    <div>
+        <form action="#" method="post">
+            {% csrf_token %}
+            <div class="vis">
+                {{ form.as_p }}
+            </div>
+
+            <button type="submit">Archive</button>
+        </form>
+    </div>
+    <br>
+
+    <div>
+        <a href="{% url 'shopapp:product_details' pk=product.pk name=user.username %}">Back to product</a>
+    </div>
+    <div>
+        <a href="{% url 'shopapp:products_list' name=user.username %}">Product list</a>
+    </div>
+    <br>
+{% endblock %}

@@ -1,0 +1,39 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+    Products list
+{% endblock %}
+
+{% block body %}
+
+    <h1>Products list</h1>
+    <div>
+        <a href="{% url 'shopapp:orders_list' %}">Orders list</a>
+    </div>
+    {% if perms.foo.add_product %}
+        <div>
+            <a href="{% url 'shopapp:product_create' name=user.username %}">Create products</a>
+        </div>
+    {% endif %}
+
+    <br>
+    {% if object_list %}
+        <div>
+        {% for product in object_list %}
+            {% if  product.archived == False %}
+                <p>
+                    <a href="{% url 'shopapp:product_details' pk=product.pk name=user.username %}">
+                        <strong>Name:</strong> {{ product.name }}
+                    </a>
+                </p>
+                <p><strong>Price product:</strong> {{ product.price }}</p>
+                <p><strong>Discount:</strong> {% firstof product.discount 'No discount' %} </p>
+                ________________________
+            {% endif %}
+        {% endfor %}
+        </div>
+    {% else %}
+        <div>No products</div>
+    {% endif %}
+
+{% endblock %}

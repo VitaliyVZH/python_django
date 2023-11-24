@@ -1,0 +1,34 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+    Shop Index
+{% endblock %}
+
+{% block body %}
+    <h1>
+        Hello Shop Index
+    </h1>
+
+    <ul>
+        {% for name, price in products %}
+            <li>{{ name }} {{ name|length }} for ${{ price }}</li>
+            {% if  name|length_is:'4' %}
+                <span>Lucky product</span>
+            {% endif %}
+            <div>Добавим к слову: 2 было {{ name }}, стало {{ name|add:'2' }}</div>
+            <div>Напишем слово с большой буквы: было {{ name }}, стало {{ name|capfirst }}</div>
+            <div>Напишем слово большими буквами: было {{ name }}, стало {{ name|upper }}</div>
+            <div>Удалим из слова символы: a было {{ name }}, стало {{ name|cut:'a' }}</div>
+        {% empty %}
+            No products
+        {% endfor %}
+    </ul>
+
+    <div>
+        {% lorem 2 p random %}
+    </div>
+
+    <p>
+        <a href="{% url 'shopapp:products_list' name=user.username %}">Products list</a>
+    </p>
+{% endblock %}

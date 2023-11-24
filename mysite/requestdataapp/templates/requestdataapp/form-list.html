@@ -1,0 +1,30 @@
+{% extends 'requestdataapp/base.html' %}
+
+{% block title %}
+    Form
+{% endblock %}
+
+{% block body %}
+    <h1>User data</h1>
+    <div>
+        <form action="#" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <p>
+                <input type="file" name="myfile">
+            </p>
+            <p>
+                <button type="submit">SUBMIT</button>
+            </p>
+        </form>
+
+        {% if message|slice:7 == 'Файл не' %}
+            <div class="error">
+                {{ message }}
+            </div>
+        {% else %}
+            <div class="field">
+                {{ message }}
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
