@@ -1,0 +1,28 @@
+{% extends 'shopapp/base.html' %}
+
+{% block title %}
+    Products
+{% endblock %}
+
+{% block body %}
+    <h1>Products list</h1>
+    <div>
+        <a href="{% url 'shopapp:orders_list' %}">Orders list</a>
+    </div>
+
+    {% if products %}
+        <ul>
+            {% for product in products %}
+                <li>product name: <a href="{% url 'shopapp:product_details' pk=product.pk %}">{{ product.name }}</a>  </li>
+                <li>product description: {% firstof product.description 'No description' %}</li>
+                <li>product price: {{ product.price }}</li>
+                <hr>
+            {% endfor %}
+        </ul>
+
+
+    {% else %}
+        NO Products
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>
+        {% block title %}
+            Shop base
+        {% endblock %}
+    </title>
+</head>
+<body>
+    {% block body %}
+        <h1>Base shop</h1>
+        <div style="width: 15%; border: 2px black solid; padding: 15px; border-radius: 10px">
+            <form method="post">
+                <h2>Create new group</h2>
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit">Create Group</button>
+            </form>
+        </div>
+
+
+        <ul>
+            {% for group in groups %}
+                <li>
+                    <p>Group name: {{ group }}</p>
+                    <p>Permissions: {{ group.permissions }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+
+
+    {% endblock %}
+</body>
+</html>
